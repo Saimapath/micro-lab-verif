@@ -1,0 +1,276 @@
+C51 COMPILER V9.60.7.0   LAB7AAGE                                                          03/11/2024 16:41:44 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE LAB7AAGE
+OBJECT MODULE PLACED IN .\Objects\lab7aage.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE lab7aage.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\
+                    -lab7aage.lst) TABS(2) OBJECT(.\Objects\lab7aage.obj)
+
+line level    source
+
+   1          #include <at89c5131.h>
+   2          #include <stdio.h>
+   3          #include "lcd.h"
+   4          
+   5          int a;
+   6          int key;
+   7          sbit NOTE=P0^7;
+   8          
+   9          //void Check_release(void);
+  10          
+  11          void check_rnc(void);
+  12          void timer0_isr () interrupt 1
+  13          {
+  14   1        if(key!=9 )//&& key!=0)
+  15   1        {NOTE=~NOTE;
+  16   2        }
+  17   1        else{}
+  18   1      
+  19   1        
+  20   1        if (key==1)
+  21   1        {TH0=0XEF;
+  22   2        TL0=0XB9;
+  23   2        
+  24   2        }
+  25   1        
+  26   1        else if (key==2)
+  27   1        {TH0=0XF1;
+  28   2        TL0=0X88;
+  29   2        }
+  30   1        
+  31   1        else if (key==3)
+  32   1        {TH0=0XF2;
+  33   2        TL0=0XFB;
+  34   2        }
+  35   1        
+  36   1        else if (key==4)
+  37   1        {TH0=0XF3;
+  38   2        TL0=0XCB;
+  39   2      }
+  40   1        
+  41   1        else if (key==5)
+  42   1        {TH0=0XF5;
+  43   2        TL0=0X26;
+  44   2        }
+  45   1        
+  46   1      else if (key==6)
+  47   1        {TH0=0XF6;
+  48   2        TL0=0X3C;
+  49   2          }
+  50   1        
+  51   1        else if (key==7)
+  52   1        {TH0=0XF7;
+  53   2        TL0=0X52;
+  54   2          }
+C51 COMPILER V9.60.7.0   LAB7AAGE                                                          03/11/2024 16:41:44 PAGE 2   
+
+  55   1        
+  56   1        else if (key==8)
+  57   1        {TH0=0XF7;
+  58   2        TL0=0XD0;
+  59   2          }
+  60   1         
+  61   1        
+  62   1        else
+  63   1      {
+  64   2      }
+  65   1      }
+  66          
+  67          
+  68          
+  69          
+  70          
+  71          void check_rnc(void)
+  72          {
+  73   1        P3=0X7F;
+  74   1        if(P3==0X7F)
+  75   1        {
+  76   2          P3=0XbF;
+  77   2            if(P3==0XbF)
+  78   2          {
+  79   3            P3=0XdF;
+  80   3              if(P3==0XdF)
+  81   3               {
+  82   4                  P3=0XeF;
+  83   4                  if(P3==0XeF)
+  84   4                  {
+  85   5                   
+  86   5                  }
+  87   4                  else
+  88   4                  {
+  89   5                    if(P3==0Xee)
+  90   5                    {key=0x0d;}
+  91   5                    else if(P3==0Xed)
+  92   5                    {key=0x0f;}
+  93   5                    else if(P3==0Xeb)
+  94   5                    {key=0x10;}
+  95   5                    else if(P3==0Xe7)
+  96   5                    {key=0x0e;} 
+  97   5                  }
+  98   4          
+  99   4               }
+ 100   3              else
+ 101   3              {
+ 102   4                
+ 103   4                    if(P3==0Xde)
+ 104   4                    {key=0x0c;}
+ 105   4                    else if(P3==0Xdd)
+ 106   4                    {key=0x09;}
+ 107   4                    else if(P3==0Xdb)
+ 108   4                    {key=0x08;}
+ 109   4                    else if(P3==0Xd7)
+ 110   4                    {key=0x07;} 
+ 111   4              } 
+ 112   3            
+ 113   3            
+ 114   3          }
+ 115   2        else
+ 116   2        {
+C51 COMPILER V9.60.7.0   LAB7AAGE                                                          03/11/2024 16:41:44 PAGE 3   
+
+ 117   3          
+ 118   3                    if(P3==0Xbe)
+ 119   3                    {key=0x0b;}
+ 120   3                    else if(P3==0Xbd)
+ 121   3                    {key=0x06;}
+ 122   3                    else if(P3==0Xbb)
+ 123   3                    {key=0x05;}
+ 124   3                    else if(P3==0Xb7)
+ 125   3                    {key=0x04;} 
+ 126   3        }
+ 127   2        }
+ 128   1        else
+ 129   1        {
+ 130   2          
+ 131   2                    if(P3==0X7e)
+ 132   2                    {key=0x0a;}
+ 133   2                    else if(P3==0X7d)
+ 134   2                    {key=0x03;}
+ 135   2                    else if(P3==0X7b)
+ 136   2                    {key=0x02;}
+ 137   2                    else if(P3==0X77)
+ 138   2                    {key=0x01;} 
+ 139   2        }
+ 140   1      //  return key;
+ 141   1      }
+ 142          
+ 143          
+ 144          
+ 145          
+ 146          void main()
+ 147          
+ 148          {
+ 149   1        TMOD = 0X11; //mode 1 timer 0 and timer 1
+ 150   1         //Values for Timer 1 TL1
+ 151   1        //TH1=0X00;
+ 152   1       // TL1=0X00;
+ 153   1        TH0=0X00;
+ 154   1        TL0=0X00;
+ 155   1        ET0 = 1; //activate interrupts for both timers
+ 156   1        ///ET1 = 1;
+ 157   1        EA = 1;  //activate global interrupts
+ 158   1        TR0 = 1; //start timer 0
+ 159   1        lcd_init();
+ 160   1        lcd_cmd(0x80);
+ 161   1        NOTE=0;
+ 162   1        //TR1 = 1;
+ 163   1      
+ 164   1         while(1)
+ 165   1      {
+ 166   2          int b=0;
+ 167   2          int a=0;
+ 168   2         
+ 169   2          P3=0x0F;
+ 170   2          
+ 171   2      
+ 172   2          while(b == 0)
+ 173   2          {
+ 174   3              while(a == 0)
+ 175   3              {
+ 176   4                  if(P3 != 0x0F)
+ 177   4                      a=1;
+ 178   4              }
+C51 COMPILER V9.60.7.0   LAB7AAGE                                                          03/11/2024 16:41:44 PAGE 4   
+
+ 179   3              a=0;
+ 180   3              while(a == 0)
+ 181   3              {
+ 182   4                  if(P3 != 0x0F)
+ 183   4                      a=1;
+ 184   4              }
+ 185   3              a=0;
+ 186   3              msdelay(20);
+ 187   3              check_rnc();
+ 188   3              b=1;
+ 189   3          }
+ 190   2          if (key==1)
+ 191   2        {
+ 192   3        lcd_init();
+ 193   3        lcd_cmd(0x80);                          //Move cursor to first line
+ 194   3        msdelay(4);
+ 195   3        lcd_write_string("Sa");
+ 196   3        }
+ 197   2        
+ 198   2        else if (key==2)
+ 199   2        {
+ 200   3        lcd_init();
+ 201   3        lcd_cmd(0x80);
+ 202   3          lcd_write_string("Re");}
+ 203   2        
+ 204   2        else if (key==3)
+ 205   2        {
+ 206   3        lcd_init();
+ 207   3      lcd_cmd(0x80);
+ 208   3        lcd_write_string("Ga");}
+ 209   2        
+ 210   2        else if (key==4)
+ 211   2        {
+ 212   3      lcd_init();
+ 213   3      lcd_cmd(0x80);
+ 214   3        lcd_write_string("Ma");}
+ 215   2        
+ 216   2        else if (key==5)
+ 217   2        {
+ 218   3        lcd_init();
+ 219   3      lcd_cmd(0x80);
+ 220   3        lcd_write_string("Pa");}
+ 221   2        
+ 222   2      else if (key==6)
+ 223   2        {
+ 224   3          lcd_init();
+ 225   3        lcd_cmd(0x80);
+ 226   3        lcd_write_string("Dha");}
+ 227   2        
+ 228   2        else if (key==7)
+ 229   2        {
+ 230   3          lcd_init();
+ 231   3        lcd_cmd(0x80);
+ 232   3        lcd_write_string("Nee");}
+ 233   2        
+ 234   2        else if (key==8)
+ 235   2        {
+ 236   3          lcd_init();
+ 237   3        lcd_cmd(0x80);
+ 238   3        lcd_write_string("Saa");}
+ 239   2         
+ 240   2        
+C51 COMPILER V9.60.7.0   LAB7AAGE                                                          03/11/2024 16:41:44 PAGE 5   
+
+ 241   2        else
+ 242   2      {
+ 243   3      }
+ 244   2         }}
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    845    ----
+   CONSTANT SIZE    =     27    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      4       7
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
